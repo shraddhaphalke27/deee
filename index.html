@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Query Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>SQL Query Generator</h1>
+        <form method="POST">
+            <div class="input-group">
+                <input type="text" name="user_input" placeholder="Enter your question" required>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
+        {% if sql_query %}
+            <div class="output">
+                <h2>Generated SQL Query:</h2>
+                <pre>{{ sql_query }}</pre>
+            </div>
+        {% endif %}
+
+        {% if results %}
+            <div class="output">
+                <h2>Query Results:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for column in columns %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in results %}
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
